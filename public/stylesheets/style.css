@@ -6,3 +6,12 @@ body {
 a {
   color: #00B7FF;
 }
+
+.footer {
+	border-top: solid 1px #eee;
+	padding-top: 1em;
+}
+img.newest-list {
+	width: 175px;
+	height: 175px;
+}

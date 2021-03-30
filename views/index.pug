@@ -1,5 +1,20 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    .panel.panel-primary
+        .panel-heading
+            h3.panel-title 上传图片
+    form(method='post', action='/images', enctype='multpart/form-data')
+        .panel-body.form-horizontal
+            .form-group.col-md-12
+                label.col-sm-2.control-label(for='file') 浏览
+                .col-md-10
+                    input.form-control(type='file', name='file')
+    .panel.panel-default
+        .panel-heading
+            h3.panel-title 最新图片
+        .panel-body
+            each img in images
+                .col-md-4.text-center
+                    a(href=`/images/${img.uniqueId}`)
+                        img.img-thumbnail.newest-list(src=`/public/upload/${img.filename}`, alter=img.title)
