@@ -6,6 +6,8 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
+require('./models/db')
+
 const index = require('./routes/index')
 const users = require('./routes/users')
 const images = require('./routes/images')
