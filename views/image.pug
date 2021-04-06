@@ -1,0 +1,64 @@
+extends layout.pug
+
+block content
+    .panel.panel-primary
+        .panel-heading
+            h2.panel-title= image.title
+        .panel-body
+            p= image.description
+            .col-md-12.text-center
+                img.img-thumbnail(src=`/upload/${image.filename}`)
+        .panel-footer
+            .row
+                .col-md-8
+                    button.btn.btn-success(id='btn-like', data-id=image.id)
+                        i.fa.fa-heart 点赞
+                    | &nbsp;
+                    strong.like-count= image.likes
+                    | &nbsp; - &nbsp;
+                    i.fa.fa-eye
+                    | &nbsp;
+                    strong= image.views
+                    | &nbsp; - &nbsp; 上传时间：
+                    em.text-muted= image.timestamp
+                .col-md-4.text-right
+                    button.btn.btn-danger(id='btn-delete', data-id=image.id)
+                        i.fa.fa-times
+    .panel.panel-default
+        .panel-heading
+            .row
+                .col-md-8
+                    strong.panel-title 评论
+                .col-md-4.text-right
+                    button.btn.btn-default.btn-sm(id='btn-comment', data-id=image.id)
+                        i.fa.fa-comments-o 发表评论
+        .panel-body
+            blockquote(id='post-comment')
+                .row
+                    form(method='post', action=`/images/${image.id}/comment`)
+                        .form-group.col-sm-12
+                            label.col-sm-2.control-label(for='name') 用户名
+                            .col-sm-10
+                                input.form-control(type='text', name='name')
+                        .form-group.col-sm-12
+                            label.col-sm-2.control-label(for='email') 邮箱
+                            .col-sm-10
+                                input.form-control(type='email', name='email')
+                        .form-group.col-sm-12
+                            label.col-sm-2.control-label(for='comment') 评论
+                            .col-sm-10
+                                textarea.form-control(name='comment', rows='2')
+                        .form-group.col-sm-12
+                            .col-sm-12.text-right
+                                button.btn.btn-success(type='submit', id='comment-btn')
+                                    i.fa.fa-comment 提交
+            ul.media-list
+                each comment in comments
+                    li.media
+                        a.pull-left(href='#')
+                            img.media-object.img-circle(src='http://www.gravatar.com/avatar/?d=monsterid&s=45')
+                        .media-body
+                            #{comment.comment}
+                            br
+                            strong.media-heading= comment.name
+                            small.text-muted= comment.timestamp

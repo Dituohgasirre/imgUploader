@@ -22,8 +22,13 @@ router.post('/', uploader.single('file'), async function (ctx, next) {
             mimetype: ctx.req.file.mimetype,
             originalname: ctx.req.file.originalname
         }))
-        .then(doc => ctx.body = {ok: 1})
+        .then(doc => ctx.redirect(`/images/${doc.id}`))
         .catch(err => ctx.throw(500, err))
+})
+
+router.get('/:id', async ctx => {
+    await Image.findById(ctx.params.id)
+    .then(image => ctx.render('image', {image, comments:[]}))
 })
 
 module.exports = router
