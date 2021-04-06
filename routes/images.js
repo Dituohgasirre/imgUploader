@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const path = require('path')
 const fs = require('fs')
 const util = require('util')
-
+const stats = require('../helpers/stats')
 const rename = util.promisify(fs.rename)
 
 router.prefix('/images')
@@ -27,8 +27,11 @@ router.post('/', uploader.single('file'), async function (ctx, next) {
 })
 
 router.get('/:id', async ctx => {
-    await Image.findById(ctx.params.id)
-    .then(image => ctx.render('image', {image, comments:[]}))
+    await Promise.all([
+        Image.findById(ctx.params.id),
+        stats()
+    ])
+    .then(([image, stats]) => ctx.render('image', {image, stats, comments: []}))
 })
 
 module.exports = router
