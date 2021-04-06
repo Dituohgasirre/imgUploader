@@ -1,19 +1,12 @@
 const router = require('koa-router')()
+const mongoose = require('mongoose')
+
+const Image = mongoose.model('Image')
 
 router.get('/', async (ctx, next) => {
-  await ctx.render('index', {
-    images: []
-  })
-})
-
-router.get('/string', async (ctx, next) => {
-  ctx.body = 'koa2 string'
-})
-
-router.get('/json', async (ctx, next) => {
-  ctx.body = {
-    title: 'koa2 json'
-  }
+    await Image.find().sort({timestamp: -1})
+        .then(images => ctx.render('index', {images}))
+        .catch(err => ctx.throw(500, err))
 })
 
 module.exports = router

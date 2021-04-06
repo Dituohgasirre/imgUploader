@@ -4,29 +4,29 @@ block content
     .panel.panel-primary
         .panel-heading
             h3.panel-title 上传图片
-    form(method='post', action='/images/', enctype='multipart/form-data')
-        .panel-body.form-horizontal
-            .form-group.col-md-12
-                label.col-sm-2.control-label(for='file') 浏览
-                .col-md-10
-                    input.form-control(type='file', name='file')
-            .form-group.col-md-12
-                label.col-sm-2.control-label(for='title') 标题
-                .col-md-10
-                    input.form-control(type='text', name='title')
-            .form-group.col-md-12
-                label.col-sm-2.control-label(for='description') 描述
-                .col-md-10
-                    textarea.form-control(name='description', rows='2')
-            .form-group.col-md-12
-                .col-md-12.text-right
-                    button.btn.btn-success(type='submit', id='login-btn')
-                        i.fa.fa-cloud-upload 上传图片
+        form(method='post', action='/images/', enctype='multipart/form-data')
+            .panel-body.form-horizontal
+                .form-group.col-md-12
+                    label.col-sm-2.control-label(for='file') 浏览
+                    .col-md-10
+                        input.form-control(type='file', name='file')
+                .form-group.col-md-12
+                    label.col-sm-2.control-label(for='title') 标题
+                    .col-md-10
+                        input.form-control(type='text', name='title')
+                .form-group.col-md-12
+                    label.col-sm-2.control-label(for='description') 描述
+                    .col-md-10
+                        textarea.form-control(name='description', rows='2')
+                .form-group.col-md-12
+                    .col-md-12.text-right
+                        button.btn.btn-success(type='submit', id='login-btn')
+                            i.fa.fa-cloud-upload 上传图片
     .panel.panel-default
         .panel-heading
             h3.panel-title 最新图片
         .panel-body
             each img in images
                 .col-md-4.text-center
-                    a(href=`/images/${img.uniqueId}`)
-                        img.img-thumbnail.newest-list(src=`/public/upload/${img.filename}`, alter=img.title)
+                    a(href=`/images/${img.id}`)
+                        img.img-thumbnail(src=`/upload/${img.filename}`)
