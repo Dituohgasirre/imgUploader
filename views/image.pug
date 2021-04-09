@@ -58,7 +58,7 @@ block content
                         a.pull-left(href='#')
                             img.media-object.img-circle(src='http://www.gravatar.com/avatar/?d=monsterid&s=45')
                         .media-body
-                            #{comment.comment}
-                            br
+                            p= comment.comment
                             strong.media-heading= comment.name
+                            | &nbsp;
                             small.text-muted= comment.timestamp

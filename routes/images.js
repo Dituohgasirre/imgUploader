@@ -11,6 +11,7 @@ const comments = require('./comments')
 router.prefix('/images')
 
 const Image = mongoose.model('Image')
+const Comment = mongoose.model('Comment')
 
 router.post('/', uploader.single('file'), async function (ctx, next) {
     let file = ctx.req.file
@@ -30,10 +31,12 @@ router.post('/', uploader.single('file'), async function (ctx, next) {
 router.get('/:id', async ctx => {
     await Promise.all([
         Image.findById(ctx.params.id),
-        stats()
+        stats(),
+        Comment.find({image: ctx.params.id})
     ])
-    .then(([image, stats]) => ctx.render('image', {image, stats, comments: []}))
+    .then(([image, stats, comments]) => ctx.render('image', {image, stats, comments}))
 })
 
 router.use('/:imageid/comment', comments.routes(), comments.allowedMethods())
+
 module.exports = router
