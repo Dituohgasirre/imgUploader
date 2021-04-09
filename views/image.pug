@@ -20,7 +20,7 @@ block content
                     | &nbsp;
                     strong= image.views
                     | &nbsp; - &nbsp; 上传时间：
-                    em.text-muted= image.timestamp
+                    em.text-muted= image.timestamp.toLocaleString()
                 .col-md-4.text-right
                     button.btn.btn-danger(id='btn-delete', data-id=image.id)
                         i.fa.fa-times

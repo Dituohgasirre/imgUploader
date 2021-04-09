@@ -35,6 +35,14 @@ router.get('/:id', async ctx => {
         Comment.find({image: ctx.params.id})
     ])
     .then(([image, stats, comments]) => ctx.render('image', {image, stats, comments}))
+    .catch(err => ctx.throw(500, err))
+})
+
+router.post('/:id/like', async ctx => {
+    await Image.findByIdAndUpdate(ctx.params.id, {$inc: {likes: 1}})
+    .then(() => Image.findById(ctx.params.id))
+    .then(doc => ctx.body = {likes: doc.likes})
+    .catch(err => ctx.throw(500, err))
 })
 
 router.use('/:imageid/comment', comments.routes(), comments.allowedMethods())

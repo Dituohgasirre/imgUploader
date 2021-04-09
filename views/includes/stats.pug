@@ -1,3 +1,16 @@
 .panel.panel-default
-	.panel-heading
-		h3.panel-title 图片统计
+    .panel-heading
+        h3.panel-title 统计信息
+    .panel-body
+        .row
+            .col-md-4.text-left 图片数量
+            .col-md-8.text-right= stats.images
+        .row
+            .col-md-4.text-left 评论数量
+            .col-md-8.text-right= stats.comments
+        .row
+            .col-md-4.text-left 浏览总数
+            .col-md-8.text-right= stats.views
+        .row
+            .col-md-4.text-left 点赞总数
+            .col-md-8.text-right= stats.likes
