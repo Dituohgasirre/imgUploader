@@ -6,6 +6,7 @@ const fs = require('fs')
 const util = require('util')
 const stats = require('../helpers/stats')
 const rename = util.promisify(fs.rename)
+const comments = require('./comments')
 
 router.prefix('/images')
 
@@ -34,4 +35,5 @@ router.get('/:id', async ctx => {
     .then(([image, stats]) => ctx.render('image', {image, stats, comments: []}))
 })
 
+router.use('/:imageid/comment', comments.routes(), comments.allowedMethods())
 module.exports = router
